@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "@faker-js/faker": "^8.4.0"
+  },
+  "dependencies": {
+    "papaparse": "^5.4.1"
+  }
+}

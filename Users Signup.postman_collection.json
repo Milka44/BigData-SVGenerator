@@ -1,0 +1,125 @@
+{
+	"info": {
+		"_postman_id": "f11666df-3b02-4cd6-92f2-cc36c0122ef2",
+		"name": "QAAUTORUN with csv : Users Signup",
+		"description": "For Run use the folowing:\n\n1\\. Signup with file users.csv",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20538761",
+		"_collection_link": "https://www.postman.com/irina44/workspace/my-workspace/collection/20538761-f11666df-3b02-4cd6-92f2-cc36c0122ef2?action=share&source=collection_link&creator=20538761"
+	},
+	"item": [
+		{
+			"name": "Users Signup",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"// Check the environment variable to determine if the iteration should be stopped\r",
+							"if (pm.environment.get(\"stopIteration\") === true) {\r",
+							"    postman.setNextRequest(null);\r",
+							"}\r",
+							"pm.environment.set(\"name\", pm.iterationData.get(\"name\"));\r",
+							"pm.environment.set(\"lastName\", pm.iterationData.get(\"lastName\"));\r",
+							"pm.environment.set(\"email\", pm.iterationData.get(\"email\"));\r",
+							"pm.environment.set(\"password\", pm.iterationData.get(\"password\"));\r",
+							"pm.environment.set(\"repeatPwd\", pm.iterationData.get(\"repeatPwd\"));\r",
+							"\r",
+							"var requestBody = {\r",
+							"    \"name\": pm.variables.get(\"name\"),\r",
+							"    \"lastName\": pm.variables.get(\"lastName\"),\r",
+							"    \"email\": pm.variables.get(\"email\"),\r",
+							"    \"password\": pm.variables.get(\"password\"),\r",
+							"    \"repeatPassword\": pm.variables.get(\"repeatPwd\")\r",
+							"};\r",
+							"\r",
+							"pm.variables.set(\"body\", JSON.stringify(requestBody));\r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"let jsonData = pm.response.json();\r",
+							"\r",
+							"pm.test(\"Successful request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201, 202]);\r",
+							"});\r",
+							"\r",
+							"if (jsonData.status === \"error\") {\r",
+							"    console.log(\"The status is not 'ok'. Stopping the iteration run.\");\r",
+							"    pm.environment.set(\"stopIteration\", true);\r",
+							"} else {\r",
+							"    console.log(\"The status is 'ok'. Continuing with the iteration run.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"{{name}}\",\r\n  \"lastName\": \"{{lastName}}\",\r\n  \"email\": \"{{email}}\",\r\n  \"password\": \"{{password}}\",\r\n  \"repeatPassword\": \"{{repeatPwd}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/api/auth/signup",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Initialize the environment variable",
+					"pm.environment.set(\"stopIteration\", false);"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
