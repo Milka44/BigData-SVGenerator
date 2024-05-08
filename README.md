@@ -1,8 +1,9 @@
 # BigData-csv_generator
-Need to create a big data with registered users for your project? 
+Need to create big data with registered users for your project? 
 Try my improved JS generator.
 
 Instruction:
+
 Download all data from this repo;
 Open it in VS code;
 Install js/faker: go to Terminal in package.json and enter "npm install --save-dev @faker-js/faker";
